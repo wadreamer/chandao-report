@@ -31,6 +31,8 @@ public class WorkloadDto implements Serializable {
 
     private String status;
 
+    private String difficulty;
+
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date estStarted;
 
@@ -51,6 +53,7 @@ public class WorkloadDto implements Serializable {
     private Float estimate;
 
     private Integer storyId;
+
 
     public String getFinishedBy() {
         return finishedBy;
@@ -170,5 +173,13 @@ public class WorkloadDto implements Serializable {
 
     public void setEstimate(Float estimate) {
         this.estimate = estimate;
+    }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
     }
 }

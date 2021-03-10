@@ -49,6 +49,8 @@ public class WorkSummaryDto implements Serializable {
 
     private Float estimate;
 
+    private String difficulty;
+
     public String getFinishedBy() {
         return finishedBy;
     }
@@ -152,4 +154,13 @@ public class WorkSummaryDto implements Serializable {
     public void setEstimate(Float estimate) {
         this.estimate = estimate;
     }
+
+    public String getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(String difficulty) {
+        this.difficulty = difficulty;
+    }
 }
+

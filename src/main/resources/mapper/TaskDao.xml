@@ -16,12 +16,13 @@
         <result column="delay" property="delay"/>
         <result column="consumed" property="consumed"/>
         <result column="estimate" property="estimate"/>
+        <result column="difficulty" property="difficulty"/>
     </resultMap>
 
     <select id="getWorkSummary" resultMap="workSummary">
         select t1.realname realname,t2.id project_id, t2.`name` project, t3.id task_id,
         t3.`name` task,t3.`status` status,t3.estStarted estStarted,t3.deadline deadline,t3.realStarted realStarted,
-        t3.finishedDate finishedDate, t3.consumed consumed,t3.estimate estimate,
+        t3.finishedDate finishedDate, t3.consumed consumed,t3.estimate estimate,t3.difficulty difficulty,
         if(TIMESTAMPDIFF(DAY,t3.deadline,t3.finishedDate) is NULL,0,TIMESTAMPDIFF(DAY,t3.deadline,t3.finishedDate))
         delay
         from zt_user t1, zt_project t2, zt_task t3
@@ -62,16 +63,16 @@
     </select>
 
     <!--<select id="getWorkSumSort" resultMap="workSum">-->
-        <!--select ROW_NUMBER() over (order by sum(binary t3.consumed) DESC) sortnum,-->
-        <!--t1.realname realname, sum(binary t3.consumed) sumconsumed, sum(binary t3.estimate) sumestimate-->
-        <!--from zt_user t1, zt_project t2, zt_task t3-->
-        <!--WHERE t1.account = t3.finishedBy-->
-        <!--and t2.id = t3.project-->
-        <!--and t3.deleted = '0'-->
-        <!--and t3.`status` not in ('wait','doing','pause','cancel')-->
-        <!--and t3.finishedDate between #{startDate} and DATE_ADD(#{endDate},INTERVAL 1 DAY)-->
-        <!--GROUP BY t1.realname-->
-        <!--ORDER BY sumconsumed desc-->
+    <!--select ROW_NUMBER() over (order by sum(binary t3.consumed) DESC) sortnum,-->
+    <!--t1.realname realname, sum(binary t3.consumed) sumconsumed, sum(binary t3.estimate) sumestimate-->
+    <!--from zt_user t1, zt_project t2, zt_task t3-->
+    <!--WHERE t1.account = t3.finishedBy-->
+    <!--and t2.id = t3.project-->
+    <!--and t3.deleted = '0'-->
+    <!--and t3.`status` not in ('wait','doing','pause','cancel')-->
+    <!--and t3.finishedDate between #{startDate} and DATE_ADD(#{endDate},INTERVAL 1 DAY)-->
+    <!--GROUP BY t1.realname-->
+    <!--ORDER BY sumconsumed desc-->
     <!--</select>-->
 
     <resultMap id="workload" type="club.wadreamer.chandao.entity.dto.WorkloadDto">
@@ -89,6 +90,7 @@
         <result column="storyId" property="storyId"/>
         <result column="delay" property="delay"/>
         <result column="estimate" property="estimate"/>
+        <result column="difficulty" property="difficulty"/>
     </resultMap>
 
     <select id="getWorkload" resultMap="workload">
@@ -96,7 +98,7 @@
         t3.`name` task,t3.`status` status,t3.estStarted estStarted,t3.deadline deadline,t3.realStarted realStarted,
         t3.finishedDate finishedDate, t3.consumed consumed,t3.assignedDate, t3.story storyId, t3.`left` `left`,
         if(TIMESTAMPDIFF(DAY,t3.estStarted,t3.realStarted) is NULL,0,TIMESTAMPDIFF(DAY,t3.estStarted,t3.realStarted))
-        delay, t3.estimate estimate
+        delay, t3.estimate estimate,t3.difficulty difficulty
         from zt_user t1, zt_project t2, zt_task t3
         WHERE t1.account = t3.assignedTo
         and t2.id = t3.project

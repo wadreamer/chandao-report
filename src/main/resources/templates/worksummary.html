@@ -96,6 +96,24 @@
         return "<span>" + delay + "</span>";
     }
 
+    function difficultyTrans(difficulty) {
+        if(parseInt(difficulty) == 1){
+            return "★☆☆";
+        }
+
+        if(parseInt(difficulty) == 2){
+            return "★★☆"
+        }
+
+        if(parseInt(difficulty) == 3){
+            return "★★★"
+        }
+
+        if(parseInt(difficulty) == 4){
+            return "★★★★"
+        }
+    }
+
 </script>
 
 <script type="text/html" id="status_tpl">
@@ -150,6 +168,9 @@
     {{delayCompare(d.delay)}}
 </script>
 
+<script type="text/html" id="difficulty_tpl">
+    {{difficultyTrans(d.difficulty)}}
+</script>
 
 <script th:src="@{layui/layui.js}"></script>
 
@@ -185,6 +206,7 @@
                 {field: 'project', title: '所属项目', align: 'center', width: '13%'},
                 {field: 'taskId', title: '任务编号', align: 'center', width: '5%'},
                 {field: 'task', title: '任务名称', templet: 'task_tpl'},
+                {field: 'difficulty', title: '难度系数', align: 'center', width: '5%',templet: '#difficulty_tpl'},
                 {field: 'status', title: '状态', align: 'center', templet: '#status_tpl', width: '6%'},
                 {field: 'estStarted', title: '预计开始日期', templet: '#estStarted_tpl', align: 'center', width: '8%'},
                 {field: 'deadline', title: '预计完成日期', templet: '#deadline_tpl', align: 'center', width: '8%'},
